@@ -34,6 +34,8 @@ func main() {
 	http.HandleFunc(login_cgi, login)
 	http.HandleFunc(logout_cgi, logout)
 
+	http.HandleFunc("/contact.cgi", contact)
+
 	log.Fatal(s.ListenAndServe()) // Servidor HTTP multihilo
 
 }
