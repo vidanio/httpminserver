@@ -33,8 +33,8 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			}
 			defer c.Close()
 			// Set the sender and recipient.
-			c.Mail("info@todostreaming.es")
-			c.Rcpt(r.FormValue("email"))
+			c.Mail(r.FormValue("email"))
+			c.Rcpt("info@todostreaming.es")
 			// Send the email body.
 			wc, err := c.Data()
 			if err != nil {
