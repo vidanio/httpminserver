@@ -49,7 +49,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 						"\r\n" +
 				testBody
 			*/
-			header := fmt.Sprintf("To: %s\r\nFrom: %s\r\nMime-Version: 1.0\r\nDate: %s\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n", recvmail, r.FormValue("email"), time.Now().Format(time.RFC1123Z))
+			header := fmt.Sprintf("To: %s\r\nFrom: %s\r\nSubject: %s\r\nMime-Version: 1.0\r\nDate: %s\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n", recvmail, r.FormValue("email"), subject, time.Now().Format(time.RFC1123Z))
 			content := fmt.Sprintf("[Name]: %s\r\n[Company]: %s\r\n[IP]: %s\r\n[Message]: %s\r\n", r.FormValue("name"), r.FormValue("company"), r.RemoteAddr, r.FormValue("message"))
 			buf := bytes.NewBufferString(header + content)
 			if _, err = buf.WriteTo(wc); err != nil {

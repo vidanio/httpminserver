@@ -21,4 +21,5 @@ const (
 	settingsFile           = "/usr/local/bin/settings.reg"                // file with some settings inside ?????????????? "/usr/local/bin/settings.reg"
 	metalFile              = "/tmp/httpminserver"                         // file to know if system rebooted or not when systemd falls
 	recvmail               = "info@todostreaming.es"
+	subject                = "Contact Form Full Metal Player"
 )
