@@ -4,7 +4,7 @@ const (
 	// config variables for the HTTP server
 	MAX_MEMORY             = 16 * 1024 * 1024                             // 16 MB
 	rootdir                = "/usr/local/bin/html/"                       // website root ??????????????????
-	session           bool = true                                         // session control by cookies enabled
+	session           bool = false                                        // session control by cookies enabled
 	session_timeout        = 1200                                         // timeout for a session (20 min?)
 	first_page             = "index"                                      // login page (default root page - always .html)
 	enter_page             = "enter.html"                                 // enter page after login
@@ -21,5 +21,5 @@ const (
 	settingsFile           = "/usr/local/bin/settings.reg"                // file with some settings inside ?????????????? "/usr/local/bin/settings.reg"
 	metalFile              = "/tmp/httpminserver"                         // file to know if system rebooted or not when systemd falls
 	recvmail               = "info@todostreaming.es"
-	subject                = "Contact Form Full Metal Player"
+	subject                = "Full Metal Player's Contact Form"
 )
