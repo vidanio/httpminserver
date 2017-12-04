@@ -48,6 +48,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			fmt.Println("Mail sent successfully:\n" + header + content)
+			http.Redirect(w, r, "/"+sent_page+".html", http.StatusFound)
 		} else {
 			http.Error(w, "Internal Server Error", 500)
 			return
