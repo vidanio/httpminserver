@@ -8,7 +8,7 @@ const (
 	session_timeout        = 1200                                         // timeout for a session (20 min?)
 	first_page             = "index"                                      // login page (default root page - always .html)
 	enter_page             = "enter.html"                                 // enter page after login
-	sent_page              = "sent.html"                                  // sent mail page
+	sent_page              = "sent"                                       // sent mail page
 	http_port              = "80"                                         // HTTP server port ??????????????????? "80"
 	name_username          = "usr"                                        // name of input username in the login page
 	name_password          = "pwd"                                        // name of input password in the login page
