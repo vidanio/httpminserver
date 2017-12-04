@@ -20,4 +20,5 @@ const (
 	logFile                = "/usr/local/bin/html/logs/httpminserver.log" // error logs file path ???????????????? "/var/log/hlserver.log"
 	settingsFile           = "/usr/local/bin/settings.reg"                // file with some settings inside ?????????????? "/usr/local/bin/settings.reg"
 	metalFile              = "/tmp/httpminserver"                         // file to know if system rebooted or not when systemd falls
+	recvmail               = "info@todostreaming.es"
 )

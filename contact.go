@@ -7,14 +7,11 @@ import (
 	"net/smtp"
 	"net/url"
 	"strings"
+	"time"
 )
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm() // recupera campos del form tanto GET como POST r.Method(string)
-	for k, v := range r.Form {
-		fmt.Printf("%s -> %s\n", k, v)
-	}
-	fmt.Printf("IP: %s\t Referrer: %s\n", r.RemoteAddr, r.Referer())
 
 	if r.FormValue("send") != "" {
 		var ref *url.URL
@@ -34,7 +31,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			defer c.Close()
 			// Set the sender and recipient.
 			c.Mail(r.FormValue("email"))
-			c.Rcpt("info@todostreaming.es")
+			c.Rcpt(recvmail)
 			// Send the email body.
 			wc, err := c.Data()
 			if err != nil {
@@ -42,13 +39,24 @@ func contact(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			defer wc.Close()
-			content := fmt.Sprintf("[Name]: %s\n[Company]: %s\n[IP]: %s\n[Message]: %s\n", r.FormValue("name"), r.FormValue("company"), r.RemoteAddr, r.FormValue("message"))
-			buf := bytes.NewBufferString(content)
+			/*
+				testMsg  = "To: " + testTo1 + ", " + testTo2 + "\r\n" +
+						"From: " + testFrom + "\r\n" +
+						"Mime-Version: 1.0\r\n" +
+						"Date: Wed, 25 Jun 2014 17:46:00 +0000\r\n" +
+						"Content-Type: text/plain; charset=UTF-8\r\n" +
+						"Content-Transfer-Encoding: quoted-printable\r\n" +
+						"\r\n" +
+				testBody
+			*/
+			header := fmt.Sprintf("To: %s\r\nFrom: %s\r\nMime-Version: 1.0\r\nDate: %s\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n", recvmail, r.FormValue("email"), time.Now().Format(time.RFC1123Z))
+			content := fmt.Sprintf("[Name]: %s\r\n[Company]: %s\r\n[IP]: %s\r\n[Message]: %s\r\n", r.FormValue("name"), r.FormValue("company"), r.RemoteAddr, r.FormValue("message"))
+			buf := bytes.NewBufferString(header + content)
 			if _, err = buf.WriteTo(wc); err != nil {
 				http.Error(w, "Internal Server Error", 500)
 				return
 			}
-			fmt.Println("Mail sent successfully:\n" + content)
+			fmt.Println("Mail sent successfully:\n" + header + content)
 		} else {
 			http.Error(w, "Internal Server Error", 500)
 			return
